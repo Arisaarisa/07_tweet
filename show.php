@@ -28,7 +28,7 @@
     <ul class="tweet-list">
       <li>
         [#<?php echo h($tweet['id']); ?>]
-        @<?php echo h($tweet['content']); ?><br>
+        <?php echo h($tweet['content']); ?><br>
         投稿日時: <?php echo h($tweet['created_at']); ?>
         <?php if ($tweet['good'] === '0') : ?>
           <a style="text-decoration: none;" href="good.php?id=<?php echo h($tweet['id']); ?>"><?php echo '☆'; ?></a>

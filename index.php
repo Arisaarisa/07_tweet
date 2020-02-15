@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //   $created_at = date("y/m/d H:i:s");
     //   return $created_at;
     // } 
+    
     // データを追加する
     $sql = "insert into tweets (content, created_at) values (:content, now())";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":content", $content);
     $stmt->execute();
-    // $tweets = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // index.phpに戻る
     header('Location: index.php');
     exit;

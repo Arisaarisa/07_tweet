@@ -9,18 +9,27 @@ $id = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $good = $_POST['good'];
-  if ($tweet['good'] === '0') {
-    $sql = "update tweets set good = '1' where id = :id";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":id", $id);
-} else {
-    $sql = "update tweets set good = '0' where id = :id";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":id", $id);
+  if ($good === '0') {
+
+    $good_value = '1';
+    // $sql1 = "update tweets set good = :good where id = :id";
+    // $stmt = $dbh->prepare($sql1);
+    // $stmt->bindParam(":good", $good_value);
+    // $stmt->bindParam(":id", $id);
+  } 
+  if ($good === '1') {
+    $good_value = '0';
+    // $sql2 = "update tweets set good = :good where id = :id";
+    // $stmt = $dbh->prepare($sql2);
+    // $stmt->bindParam(":good", $good_value);
+    // $stmt->bindParam(":id", $id);
   }
-  $stmt->execute();
-  // 結果の受け取り
-  $tweets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$sql = "update tweets set good = :good where id = :id";
+$stmt = $dbh->prepare($sql);
+$stmt->bindParam(":good", $good_value);
+$stmt->bindParam(":id", $id);
+$stmt->execute();
+
 }
 header('Location: index.php');
 exit;
