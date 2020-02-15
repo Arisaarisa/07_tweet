@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "update tweets set good = '0' where id = :id";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":id", $id);
-    // PDO処理
   }
   $stmt->execute();
   // 結果の受け取り
