@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // バリデーションを突破したあとの処理 "もし空っぽだったら↓"
+  // 時間を日本の正しい時間にしたいが
   if (empty($errors)) {
     // function created_at() {
     //   date_default_timezone_set('Asia/Tokyo');
