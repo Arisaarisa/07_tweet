@@ -1,0 +1,18 @@
+create table tweets (
+    id int primary key auto_increment,
+    content varchar(144),
+    good boolean default false,
+    created_at datetime
+);
+
+
+-- データベースの作成
+create database camp_tweet;
+
+-- 作業ユーザーの作成とパスワードの設定
+-- 今回はホストを指定しない
+-- タスク管理アプリでtestuserを作成している場合は作成しなくてよい
+create user admin_user identified by '1234';
+
+-- 「camp_tweet」というデータベースの全てのテーブルの操作権限を「admin_user」に付与。
+grant all on camp_tweet.* to admin_user;
