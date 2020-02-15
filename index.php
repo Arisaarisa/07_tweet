@@ -47,45 +47,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <meta charset="utf-8">
-    <title>Tweet</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  
-  <body>
-    <h1>新規投稿</h1>
-    <?php if ($errors) : ?>
-      <ul class="error-list">
-        <?php foreach ($errors as $error) : ?>
-          <li>
-            <?php echo h($error); ?>
-          </li>
-          <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
-        <form action="" method="post">
-          <p>
-            <label for="content">本文</label><br>
-            <textarea name="content" cols="30" rows="5"></textarea>
-          </p>
-          <p><input type="submit" value="投稿する"></p>
-        </form>
-        
-        <h2>Tweet一覧</h2>
-        <!-- 投稿の下に一覧を表示 -->
-        <!-- もし$tweetsにデータが設定されていたら (if)-->
-        <?php if (count($tweets)) : ?>
-          <ul class="tweet-list">
-            <!-- foreachで出力 -->
-            <?php foreach ($tweets as $tweet) : ?>
-              <li>
-                <!-- お気に入り -->
-                <!-- 投稿はアンカータグでshow.phpへ飛ぶ -->
-                <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
-                投稿日時: <?php echo h($tweet['created_at']); ?>
-                
+
+<head>
+  <meta charset="utf-8">
+  <title>Tweet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>新規Tweet</h1>
+  <?php if ($errors) : ?>
+    <ul class="error-list">
+      <?php foreach ($errors as $error) : ?>
+        <li>
+          <?php echo h($error); ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+  <form action="" method="post">
+    <p>
+      <label for="content">ツイート</label><br>
+      <textarea name="content" cols="30" rows="5" placeholder="いまどうしてる？"></textarea>
+    </p>
+    <p><input type="submit" value="投稿する"></p>
+  </form>
+
+  <h2>Tweet一覧</h2>
+  <!-- 投稿の下に一覧を表示 -->
+  <!-- もし$tweetsにデータが設定されていたら (if)-->
+  <?php if (count($tweets)) : ?>
+    <ul class="tweet-list">
+      <!-- foreachで出力 -->
+      <?php foreach ($tweets as $tweet) : ?>
+        <li>
+          <!-- お気に入り -->
+          <!-- 投稿はアンカータグでshow.phpへ飛ぶ -->
+          <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
+          投稿日時: <?php echo h($tweet['created_at']); ?>
+          <?php if ($tweet['good'] === '0') : ?>
+            <a style="text-decoration: none;" href="good.php?id=<?php echo h($tweet['id']); ?>"><?php echo '☆'; ?></a>
+          <?php else : ?>
+            <a style="text-decoration: none;" href="good.php?id=<?php echo h($tweet['id']); ?>"><?php echo '★'; ?></a>
+          <?php endif; ?>
           <hr>
         </li>
       <?php endforeach; ?>
