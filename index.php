@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //   $created_at = date("y/m/d H:i:s");
     //   return $created_at;
     // } 
-    
+
     // データを追加する
     $sql = "insert into tweets (content, created_at) values (:content, now())";
     $stmt = $dbh->prepare($sql);
