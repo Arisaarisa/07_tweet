@@ -27,14 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // バリデーションを突破したあとの処理 "もし空っぽだったら↓"
-  // 時間を日本の正しい時間にしたいが
-  if (empty($errors)) {
-    // function created_at() {
-    //   date_default_timezone_set('Asia/Tokyo');
-    //   $created_at = date("y/m/d H:i:s");
-    //   return $created_at;
-    // } 
 
+  if (empty($errors)) {
     // データを追加する
     $sql = "insert into tweets (content, created_at) values (:content, now())";
     $stmt = $dbh->prepare($sql);
@@ -68,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
   <form action="" method="post">
     <p>
-      <label for="content">ツイート内容</label><br>
-      <textarea name="content" cols="30" rows="5" placeholder="いまどうしてる？"></textarea>
+      <label for="content">ツイート内容<br>
+        <textarea name="content" cols="30" rows="5" placeholder="いまどうしてる？"></textarea>
+      </label>
     </p>
     <p><input type="submit" value="投稿する"></p>
   </form>
