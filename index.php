@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $errors = [];
 
   if ($content == '') {
-    $errors['content'] = 'ひとこと言って！';
+    $errors['content'] = 'ツイート内容を入力してください。';
   }
 
   // バリデーションを突破したあとの処理 "もし空っぽだったら↓"
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
   <form action="" method="post">
     <p>
-      <label for="content">ツイート</label><br>
+      <label for="content">ツイート内容</label><br>
       <textarea name="content" cols="30" rows="5" placeholder="いまどうしてる？"></textarea>
     </p>
     <p><input type="submit" value="投稿する"></p>
@@ -87,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
           投稿日時: <?php echo h($tweet['created_at']); ?>
           <?php if ($tweet['good'] === '0') : ?>
-            <a style="text-decoration: none;" href="good.php?id=<?php echo h($tweet['id']); ?>"><?php echo '☆'; ?></a>
+            <a href="good.php?id=<?php echo h($tweet['id']) . "&good=1"; ?>" class="good-link"><?php echo '☆'; ?></a>
           <?php else : ?>
-            <a style="text-decoration: none;" href="good.php?id=<?php echo h($tweet['id']); ?>"><?php echo '★'; ?></a>
+            <a href="good.php?id=<?php echo h($tweet['id']) . "&good=0"; ?>" class="bad-link"><?php echo '★'; ?></a>
           <?php endif; ?>
           <hr>
         </li>

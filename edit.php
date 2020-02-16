@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // バリデーション
   if ($content == '') {
-    $errors['content'] = '無言はNG';
+    $errors['content'] = '入力がされていません。';
   }
 
   if ($content === $tweet['content']) {
-    $errors['uncanged'] = '変更されていません';
+    $errors['uncanged'] = '内容が変更されていません。';
   }
 
   // バリデーション突破後
