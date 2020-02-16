@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // バリデーションを突破したあとの処理 "もし空っぽだったら↓"
-
   if (empty($errors)) {
     // データを追加する
     $sql = "insert into tweets (content, created_at) values (:content, now())";
@@ -77,10 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <!-- foreachで出力 -->
       <?php foreach ($tweets as $tweet) : ?>
         <li>
-          <!-- お気に入り -->
           <!-- 投稿はアンカータグでshow.phpへ飛ぶ -->
           <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
           投稿日時: <?php echo h($tweet['created_at']); ?>
+          <!-- お気に入り☆★ -->
           <?php if ($tweet['good'] === '0') : ?>
             <a href="good.php?id=<?php echo h($tweet['id']) . "&good=1"; ?>" class="good-link"><?php echo '☆'; ?></a>
           <?php else : ?>
@@ -90,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </li>
       <?php endforeach; ?>
     </ul>
-    <!-- もし$tweetsにデータが設定されていなかったら(else) -->
+  <!-- もし$tweetsにデータが設定されていなかったら(else) -->
   <?php else : ?>
     <p>投稿されたtweetはありません</p>
   <?php endif; ?>

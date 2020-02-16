@@ -2,7 +2,8 @@
 
   require_once('config.php');
   require_once('functions.php');
-
+  
+  // index.phpから該当のレコードidを使用
   $id = $_GET['id'];
 
   $dbh = connectDatabase();
@@ -27,6 +28,7 @@
     <a href="index.php">戻る</a>
     <ul class="tweet-list">
       <li>
+        <!-- 選択idを表示 -->
         [#<?php echo h($tweet['id']); ?>]
         <?php echo h($tweet['content']); ?><br>
         投稿日時: <?php echo h($tweet['created_at']); ?>

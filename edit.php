@@ -13,6 +13,7 @@ $stmt->execute();
 
 $tweet = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// 存在しないidを指定された場合はindex.phpに飛ばす
 if (!$tweet) {
   header('Location: index.php');
   exit;
