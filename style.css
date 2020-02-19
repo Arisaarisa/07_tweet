@@ -10,9 +10,11 @@
 }
 
 .good-link {
+  color: red;
   text-decoration: none;
 }
 
 .bad-link {
+  color: red;
   text-decoration: none;
 }

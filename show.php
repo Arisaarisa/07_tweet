@@ -2,7 +2,7 @@
 
   require_once('config.php');
   require_once('functions.php');
-  
+
   // index.phpから該当のレコードidを使用
   $id = $_GET['id'];
 
@@ -21,6 +21,7 @@
   <head>
     <meta charset="utf-8">
     <title>tweet</title>
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
