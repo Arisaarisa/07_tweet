@@ -3,6 +3,7 @@
   require_once('config.php');
   require_once('functions.php');
 
+  // index.phpから該当のレコードidを使用
   $id = $_GET['id'];
 
   $dbh = connectDatabase();
@@ -20,6 +21,7 @@
   <head>
     <meta charset="utf-8">
     <title>tweet</title>
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -27,9 +29,15 @@
     <a href="index.php">戻る</a>
     <ul class="tweet-list">
       <li>
+        <!-- 選択idを表示 -->
         [#<?php echo h($tweet['id']); ?>]
-        @<?php echo h($tweet['content']); ?><br>
+        <?php echo h($tweet['content']); ?><br>
         投稿日時: <?php echo h($tweet['created_at']); ?>
+        <?php if ($tweet['good'] === '0') : ?>
+          <a href="good.php?id=<?php echo h($tweet['id']) . "&good=1"; ?>" class="good-link"><?php echo '☆'; ?></a>
+        <?php else : ?>
+          <a href="good.php?id=<?php echo h($tweet['id']) . "&good=0"; ?>" class="bad-link"><?php echo '★'; ?></a>
+        <?php endif; ?>
         <a href="edit.php?id=<?php echo h($tweet['id']); ?>">[編集]</a>
         <a href="delete.php?id=<?php echo h($tweet['id']); ?>">[削除]</a>
         <hr>

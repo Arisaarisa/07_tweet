@@ -13,6 +13,7 @@ $stmt->execute();
 
 $tweet = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// 存在しないidを指定された場合はindex.phpに飛ばす
 if (!$tweet) {
   header('Location: index.php');
   exit;
@@ -24,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // バリデーション
   if ($content == '') {
-    $errors['content'] = '無言はNG';
+    $errors['content'] = '入力がされていません。';
   }
 
   if ($content === $tweet['content']) {
-    $errors['uncanged'] = '変更されていません';
+    $errors['uncanged'] = '内容が変更されていません。';
   }
 
   // バリデーション突破後

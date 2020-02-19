@@ -23,22 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $errors = [];
 
   if ($content == '') {
-    $errors['content'] = 'ひとこと言って！';
+    $errors['content'] = 'ツイート内容を入力してください。';
   }
 
   // バリデーションを突破したあとの処理 "もし空っぽだったら↓"
   if (empty($errors)) {
-    // function created_at() {
-    //   date_default_timezone_set('Asia/Tokyo');
-    //   $created_at = date("y/m/d H:i:s");
-    //   return $created_at;
-    // } 
     // データを追加する
     $sql = "insert into tweets (content, created_at) values (:content, now())";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":content", $content);
     $stmt->execute();
-    // $tweets = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // index.phpに戻る
     header('Location: index.php');
     exit;
@@ -47,50 +41,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <meta charset="utf-8">
-    <title>Tweet</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  
-  <body>
-    <h1>新規投稿</h1>
-    <?php if ($errors) : ?>
-      <ul class="error-list">
-        <?php foreach ($errors as $error) : ?>
-          <li>
-            <?php echo h($error); ?>
-          </li>
-          <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
-        <form action="" method="post">
-          <p>
-            <label for="content">本文</label><br>
-            <textarea name="content" cols="30" rows="5"></textarea>
-          </p>
-          <p><input type="submit" value="投稿する"></p>
-        </form>
-        
-        <h2>Tweet一覧</h2>
-        <!-- 投稿の下に一覧を表示 -->
-        <!-- もし$tweetsにデータが設定されていたら (if)-->
-        <?php if (count($tweets)) : ?>
-          <ul class="tweet-list">
-            <!-- foreachで出力 -->
-            <?php foreach ($tweets as $tweet) : ?>
-              <li>
-                <!-- お気に入り -->
-                <!-- 投稿はアンカータグでshow.phpへ飛ぶ -->
-                <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
-                投稿日時: <?php echo h($tweet['created_at']); ?>
-                
+
+<head>
+  <meta charset="utf-8">
+  <title>Tweet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>新規Tweet</h1>
+  <?php if ($errors) : ?>
+    <ul class="error-list">
+      <?php foreach ($errors as $error) : ?>
+        <li>
+          <?php echo h($error); ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+  <form action="" method="post">
+    <p>
+      <label for="content">ツイート内容<br>
+        <textarea name="content" cols="30" rows="5" placeholder="いまどうしてる？"></textarea>
+      </label>
+    </p>
+    <p><input type="submit" value="投稿する"></p>
+  </form>
+
+  <h2>Tweet一覧</h2>
+  <!-- 投稿の下に一覧を表示 -->
+  <!-- もし$tweetsにデータが設定されていたら (if)-->
+  <?php if (count($tweets)) : ?>
+    <ul class="tweet-list">
+      <!-- foreachで出力 -->
+      <?php foreach ($tweets as $tweet) : ?>
+        <li>
+          <!-- 投稿はアンカータグでshow.phpへ飛ぶ -->
+          <a href="show.php?id=<?php echo h($tweet['id']); ?>"><?php echo h($tweet['content']); ?></a><br>
+          投稿日時: <?php echo h($tweet['created_at']); ?>
+          <!-- お気に入り☆★ -->
+          <?php if ($tweet['good'] === '0') : ?>
+            <a href="good.php?id=<?php echo h($tweet['id']) . "&good=1"; ?>" class="good-link"><?php echo '☆'; ?></a>
+          <?php else : ?>
+            <a href="good.php?id=<?php echo h($tweet['id']) . "&good=0"; ?>" class="bad-link"><?php echo '★'; ?></a>
+          <?php endif; ?>
           <hr>
         </li>
       <?php endforeach; ?>
     </ul>
-    <!-- もし$tweetsにデータが設定されていなかったら(else) -->
+  <!-- もし$tweetsにデータが設定されていなかったら(else) -->
   <?php else : ?>
     <p>投稿されたtweetはありません</p>
   <?php endif; ?>
